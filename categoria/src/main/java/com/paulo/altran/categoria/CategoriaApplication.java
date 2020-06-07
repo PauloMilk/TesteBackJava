@@ -1,4 +1,4 @@
-package com.paulo.altra.categoria;
+package com.paulo.altran.categoria;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -12,7 +12,7 @@ CREATE TABLE tb_usuario(
 	constraint uk_acesso
 		unique key(cd_acesso));
 
-create table tb_perfis(
+create table tb_perfil(
 	cd_perfil int auto_increment,
     nm_perfil varchar(150) not null,
     constraint pk_perfil

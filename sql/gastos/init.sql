@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS db_gastos;
 use db_gastos;
 
-CREATE TABLE tb_gastos(
+CREATE TABLE tb_gasto(
     cd_gasto int auto_increment,
     ds_gasto varchar(255) not null,
     vl_gasto double not null,
