@@ -14,12 +14,12 @@ spring:
   datasource: 
     username: root
     password: root
-    url: jdbc:mysql://localhost:3306/db_gastos
+    url: jdbc:mysql://localhost:6034/db_gastos
   application:
     name: 'gastos'
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
       
 security:
