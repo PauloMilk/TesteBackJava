@@ -16,6 +16,7 @@ services:
             - "6033:3306"
         networks: 
             - prod-network
+
     mysql_gasto:
         build: 
             dockerfile: ./docker/gastos-mysql.dockerfile
@@ -27,9 +28,23 @@ services:
             MYSQL_ROOT_PASSWORD: 'root'
             MYSQL_ROOT_HOST: '%'
         ports:
-            - "6037:3306"
+            - "6034:3306"
         networks: 
             - prod-network
+    mysql_categoria:
+        build: 
+            dockerfile: ./docker/categorias-mysql.dockerfile
+            context: .
+        image: mysql:latest
+        container_name: docker-mysql-categorias
+        environment:
+            MYSQL_DATABASE: 'db_categorias'
+            MYSQL_ROOT_PASSWORD: 'root'
+            MYSQL_ROOT_HOST: '%'
+        ports:
+            - "6035:3306"
+        networks: 
+            - prod-network            
 networks: 
     prod-network:
         driver: bridge

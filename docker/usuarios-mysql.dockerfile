@@ -1,3 +1,3 @@
 FROM mysql
-COPY ./sql/usuarios/ /docker-entrypoint-initdb.d/
+COPY ./sql/usuarios/init.sql /docker-entrypoint-initdb.d/
 EXPOSE 6033
