@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.paulo.altran.categoria.exception.ResourceNotFoundException;
 import com.paulo.altran.categoria.model.Categoria;
 import com.paulo.altran.categoria.repository.CategoriaRepository;
 
@@ -31,8 +32,8 @@ public class CategoriaService {
 	}
 
 	public Categoria buscarPeloId(Long id) {
-		// TODO: FAZER TRATAMENTO DE EXCEPTION
-		Categoria categoria = categoriaRepository.findById(id).get();
+		Categoria categoria = categoriaRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada pelo id: " + id));
 		return categoria;
 	}
 
@@ -45,8 +46,8 @@ public class CategoriaService {
 	}
 
 	public Categoria buscarCategoriaPeloNomeExato(String nome) {
-		// TODO: FAZER TRATAMENTO DE EXCEPTION
-		Categoria categoria = categoriaRepository.findByNome(nome).get();
+		Categoria categoria = categoriaRepository.findByNome(nome)
+				.orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada pelo nome: " + nome));
 		return categoria;
 	}
 

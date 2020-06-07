@@ -3,48 +3,42 @@ version: "3.1"
 services:
 
     mysql_usuario:
-        build: 
-            dockerfile: ./docker/usuarios-mysql.dockerfile
-            context: .
         image: mysql:latest
         container_name: docker-mysql-usuarios
         environment:
             MYSQL_DATABASE: 'db_usuarios'
             MYSQL_ROOT_PASSWORD: 'root'
-            MYSQL_ROOT_HOST: '%'
         ports:
             - "6033:3306"
         networks: 
             - prod-network
-
+        expose: 
+            - 6033
     mysql_gasto:
-        build: 
-            dockerfile: ./docker/gastos-mysql.dockerfile
-            context: .
         image: mysql:latest
         container_name: docker-mysql-gastos
         environment:
             MYSQL_DATABASE: 'db_gastos'
             MYSQL_ROOT_PASSWORD: 'root'
-            MYSQL_ROOT_HOST: '%'
         ports:
             - "6034:3306"
         networks: 
             - prod-network
+        expose: 
+            - 6034
     mysql_categoria:
-        build: 
-            dockerfile: ./docker/categorias-mysql.dockerfile
-            context: .
         image: mysql:latest
         container_name: docker-mysql-categorias
         environment:
             MYSQL_DATABASE: 'db_categorias'
             MYSQL_ROOT_PASSWORD: 'root'
-            MYSQL_ROOT_HOST: '%'
         ports:
             - "6035:3306"
         networks: 
-            - prod-network            
+            - prod-network 
+        expose: 
+            - 6035
+
 networks: 
     prod-network:
         driver: bridge

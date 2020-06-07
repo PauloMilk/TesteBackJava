@@ -25,3 +25,10 @@ security:
   oauth2:
     resource:
       user-info-uri: http://localhost:8090/user   
+      
+
+flyway:
+   url: jdbc:mysql://localhost:6035/db_categorias
+   schemas: db_categorias
+   user: "root"
+   password: "root"

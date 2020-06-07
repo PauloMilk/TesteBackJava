@@ -26,3 +26,10 @@ security:
   oauth2:
     resource:
       user-info-uri: http://localhost:8092/user
+      
+
+flyway:
+   url: jdbc:mysql://localhost:6034/db_gastos
+   schemas: db_gastos
+   user: "root"
+   password: "root"      

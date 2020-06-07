@@ -1,4 +1,3 @@
-
 create database if not exists db_usuarios;
 use db_usuarios;
 CREATE TABLE tb_usuario(
@@ -29,9 +28,3 @@ create table usuario_perfil(
     constraint fk_perfil
 		foreign key(cd_perfil)
 			references tb_perfil(cd_perfil));
-            
-            
-            
-        
-	
-        

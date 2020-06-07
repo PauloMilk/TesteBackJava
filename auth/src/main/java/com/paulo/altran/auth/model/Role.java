@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_perfi")
+@Table(name = "tb_perfil")
 public class Role {
 
 	@Id

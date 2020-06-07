@@ -25,7 +25,7 @@ public class Categoria {
 	@Column(name = "cd_categoria")
 	private Long id;
 
-	@Column(name = "cd_nome", unique = true)
+	@Column(name = "nm_categoria", unique = true)
 	private String nome;
 
 }

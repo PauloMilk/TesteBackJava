@@ -1,8 +1,6 @@
 server:
   port: 8090
   
-  
-
 spring:
   profiles:
     active: default      
@@ -15,4 +13,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-      
+
+flyway:
+   url: jdbc:mysql://localhost:6033/db_usuarios
+   schemas: db_usuarios
+   user: "root"
+   password: "root"
