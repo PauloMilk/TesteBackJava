@@ -1,4 +1,3 @@
-create database if not exists db_usuarios;
 use db_usuarios;
 CREATE TABLE tb_usuario(
 	cd_usuario int auto_increment,

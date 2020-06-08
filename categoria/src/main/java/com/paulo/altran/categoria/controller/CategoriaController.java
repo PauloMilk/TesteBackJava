@@ -57,8 +57,8 @@ public class CategoriaController {
 
 	@PreAuthorize("hasRole('ROLE_CONSULTAR_CATEGORIA')")
 	@GetMapping("/pesquisa/nome")
-	public CategoriaRetornoDTO pesquisarPeloNomeExato(@RequestParam String nome) {
-		Categoria categoria = categoriaService.buscarCategoriaPeloNomeExato(nome);
+	public CategoriaRetornoDTO pesquisarPeloNomeExato(@RequestParam String termo) {
+		Categoria categoria = categoriaService.buscarCategoriaPeloNomeExato(termo);
 		CategoriaRetornoDTO retornoDTO = CategoriaRetornoDTO.convertToCategoriaRetornoDTO(categoria);
 		return retornoDTO;
 	}

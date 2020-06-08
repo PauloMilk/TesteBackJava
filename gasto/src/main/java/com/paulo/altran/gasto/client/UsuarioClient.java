@@ -11,7 +11,7 @@ import com.paulo.altran.gasto.dto.UsuarioDTO;
 public interface UsuarioClient {
 
 	@GetMapping("/pesquisa/acesso")
-	public Long buscarIdPeloAcesso(@RequestParam String acesso);
+	public Long buscarIdPeloAcesso(@RequestParam String termo);
 
 	@GetMapping("/{id}")
 	public UsuarioDTO buscarUsuarioPeloId(@PathVariable Long id);

@@ -1,4 +1,4 @@
-version: "3"
+version: "3.3"
 
 services:
  
@@ -13,6 +13,14 @@ services:
             - "6034:3306"
         networks: 
             - prod-network
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 100M
+                reservations:
+                    cpus: '0.25'
+                    memory: 50M    
     mysql_gasto:
         container_name: mysql-gastos
         image: paulo/mysql-gastos
@@ -24,6 +32,14 @@ services:
             - "6033:3306"
         networks: 
             - prod-network
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 100M
+                reservations:
+                    cpus: '0.25'
+                    memory: 50M 
     mysql_categoria:
         container_name: mysql-categorias
         image: paulo/mysql-categorias
@@ -35,8 +51,16 @@ services:
             - "6035:3306"
         networks: 
             - prod-network
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 100M
+                reservations:
+                    cpus: '0.25'
+                    memory: 50M 
     eureka:
-        container_name: eureka-server
+        container_name: eureka-service
         image: eureka-server
         build: 
             dockerfile: ./docker/eureka.dockerfile
@@ -46,6 +70,14 @@ services:
             - "8761:8761"        
         networks: 
             - prod-network
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 500M
+                reservations:
+                    cpus: '0.25'
+                    memory: 250M 
     usuario:
         container_name: usuario-service
         image: usuario-server
@@ -59,6 +91,14 @@ services:
             - "8083:8083"
         depends_on: 
             - "mysql_usuario"
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 500M
+                reservations:
+                    cpus: '0.25'
+                    memory: 250M 
     gasto:
         container_name: gasto-service
         image: gasto-server
@@ -72,6 +112,14 @@ services:
             - "8082:8082"
         depends_on: 
             - "mysql_gasto"
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 500M
+                reservations:
+                    cpus: '0.25'
+                    memory: 250M 
     categoria:
         container_name: categoria-service
         image: categoria-server
@@ -85,6 +133,14 @@ services:
             - "8081:8081"
         depends_on: 
             - "mysql_categoria"  
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 500M
+                reservations:
+                    cpus: '0.25'
+                    memory: 250M 
     auth:
         container_name: auth-service
         image: auth-server
@@ -99,6 +155,14 @@ services:
         depends_on: 
             - "mysql_usuario"                
             - "usuario"
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 500M
+                reservations:
+                    cpus: '0.25'
+                    memory: 250M 
     zuul:
         container_name: zuul-service
         image: zuul-server
@@ -112,7 +176,14 @@ services:
             - "5000:5000"
         depends_on: 
             - "eureka"
-
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 500M
+                reservations:
+                    cpus: '0.25'
+                    memory: 250M 
 networks: 
     prod-network:
         driver: bridge

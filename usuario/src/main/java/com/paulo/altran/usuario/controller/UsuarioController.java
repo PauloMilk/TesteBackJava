@@ -1,6 +1,7 @@
 package com.paulo.altran.usuario.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,11 +19,13 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 
 
+	@PreAuthorize("#termo == authentication.name")
 	@GetMapping("/pesquisa/acesso")
-	public Long buscarPeloAcesso(@RequestParam String acesso) {
-		return this.usuarioService.buscarPorAcesso(acesso);
+	public Long buscarPeloAcesso(@RequestParam String termo) {
+		return this.usuarioService.buscarPorAcesso(termo);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_CONSULTAR_USUARIO')")
 	@GetMapping("/{id}")
 	public UsuarioRetornoDTO buscarPeloId(@PathVariable Long id) {
 		Usuario usuario = this.usuarioService.buscarPeloId(id);
