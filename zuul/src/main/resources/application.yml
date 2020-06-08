@@ -12,3 +12,8 @@ eureka:
 spring:
   application:
     name: "zuul"
+    
+        
+zuul:
+  sensitive-headers:
+  - Cookie, Authorization            

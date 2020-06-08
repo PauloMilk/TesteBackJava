@@ -29,7 +29,7 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaService categoriaService;
 
-	@PreAuthorize("hasRole('ROLE_CRIAR_CATEGORIA')")
+	@PreAuthorize("hasRole('ROLE_CADASTRAR_CATEGORIA')")
 	@PostMapping
 	public CategoriaRetornoDTO salvarCategoria(@RequestBody @Valid CategoriaCadastroDTO dto) {
 		Categoria categoria = dto.convertToCategoria();
@@ -56,7 +56,7 @@ public class CategoriaController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_CONSULTAR_CATEGORIA')")
-	@GetMapping("/nome")
+	@GetMapping("/pesquisa/nome")
 	public CategoriaRetornoDTO buscaCategoriaPeloNomeExato(@RequestParam String nome) {
 		Categoria categoria = categoriaService.buscarCategoriaPeloNomeExato(nome);
 		CategoriaRetornoDTO retornoDTO = CategoriaRetornoDTO.convertToCategoriaRetornoDTO(categoria);

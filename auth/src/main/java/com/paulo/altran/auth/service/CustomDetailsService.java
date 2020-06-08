@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.paulo.altran.auth.model.Usuario;
 import com.paulo.altran.auth.repository.UsuarioRepository;
 
+
 @Service
 public class CustomDetailsService implements UserDetailsService {
 
