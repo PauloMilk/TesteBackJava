@@ -21,7 +21,13 @@ Projeto criado para o teste de backend Java Altran
 10. Entre no diretorio do Zuul(cd ./zuul) e execute o comando ('mvn spring-boot:run').
 ## Execução pelo Docker
 1. Faça o clone do projeto;
-2. Dentro do diretório do projeto execute o comando 'docker-compose build';
-3. Após o build, execute o comando 'docker-compose up' para travar o terminal com os logs, caso queira executar em modo Detach execute o comando 'docker-compose up -d';
-4. Aguarde o carregamento de todos os containers, alguns podem demorar por conta do banco de dados, acompanhe pelo 'docker ps' pelo status.
+2. Entre no diretorio do Eureka(cd ./eureka) e execute o comando ('mvn install');
+3. Entre no diretorio do Usuario(cd ./usuario) e execute o comando ('mvn install');
+4. Entre no diretorio do Gasto(cd ./gasto) e execute o comando ('mvn install');
+5. Entre no diretorio do Auth(cd ./auth) e execute o comando ('mvn install');
+6. Entre no diretorio do Categoria(cd ./categoria) e execute o comando ('mvn install');
+7. Entre no diretorio do Zuul(cd ./zuul) e execute o comando ('mvn install').
+8. Dentro do diretório do projeto execute o comando 'docker-compose build';
+9. Após o build, execute o comando 'docker-compose up' para travar o terminal com os logs, caso queira executar em modo Detach execute o comando 'docker-compose up -d';
+10. Aguarde o carregamento de todos os containers, alguns podem demorar por conta do banco de dados, acompanhe pelo 'docker ps' pelo status.
 
