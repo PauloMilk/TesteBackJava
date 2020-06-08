@@ -1,45 +1,118 @@
-version: "3.1"
+version: "3"
 
 services:
-
+ 
     mysql_usuario:
-        image: mysql:latest
-        container_name: docker-mysql-usuarios
-        environment:
-            MYSQL_DATABASE: 'db_usuarios'
-            MYSQL_ROOT_PASSWORD: 'root'
-        ports:
-            - "6033:3306"
-        networks: 
-            - prod-network
-        expose: 
-            - 6033
-    mysql_gasto:
-        image: mysql:latest
-        container_name: docker-mysql-gastos
-        environment:
-            MYSQL_DATABASE: 'db_gastos'
-            MYSQL_ROOT_PASSWORD: 'root'
+        container_name: mysql-usuarios
+        image: paulo/mysql-usuarios
+        build: 
+            dockerfile: ./docker/mysqlusuarios.dockerfile
+            context: .
+        restart: always     
         ports:
             - "6034:3306"
         networks: 
             - prod-network
-        expose: 
-            - 6034
+    mysql_gasto:
+        container_name: mysql-gastos
+        image: paulo/mysql-gastos
+        build: 
+            dockerfile: ./docker/mysqlgastos.dockerfile
+            context: .
+        restart: always     
+        ports:
+            - "6033:3306"
+        networks: 
+            - prod-network
     mysql_categoria:
-        image: mysql:latest
-        container_name: docker-mysql-categorias
-        environment:
-            MYSQL_DATABASE: 'db_categorias'
-            MYSQL_ROOT_PASSWORD: 'root'
+        container_name: mysql-categorias
+        image: paulo/mysql-categorias
+        build: 
+            dockerfile: ./docker/mysqlcategorias.dockerfile
+            context: .
+        restart: always     
         ports:
             - "6035:3306"
         networks: 
-            - prod-network 
-        expose: 
-            - 6035
+            - prod-network
+    eureka:
+        container_name: eureka-server
+        image: eureka-server
+        build: 
+            dockerfile: ./docker/eureka.dockerfile
+            context: .                
+        restart: always
+        ports: 
+            - "8761:8761"        
+        networks: 
+            - prod-network
+    usuario:
+        container_name: usuario-service
+        image: usuario-server
+        build: 
+            dockerfile: ./docker/usuario.dockerfile
+            context: .
+        restart: always
+        networks: 
+            - prod-network
+        ports: 
+            - "8083:8083"
+        depends_on: 
+            - "mysql_usuario"
+    gasto:
+        container_name: gasto-service
+        image: gasto-server
+        build: 
+            dockerfile: ./docker/gasto.dockerfile
+            context: .
+        restart: always
+        networks: 
+            - prod-network
+        ports: 
+            - "8082:8082"
+        depends_on: 
+            - "mysql_gasto"
+    categoria:
+        container_name: categoria-service
+        image: categoria-server
+        build: 
+            dockerfile: ./docker/categoria.dockerfile
+            context: .
+        restart: always
+        networks: 
+            - prod-network
+        ports: 
+            - "8081:8081"
+        depends_on: 
+            - "mysql_categoria"  
+    auth:
+        container_name: auth-service
+        image: auth-server
+        build: 
+            dockerfile: ./docker/auth.dockerfile
+            context: .
+        restart: always
+        networks: 
+            - prod-network
+        ports: 
+            - "8090:8090"
+        depends_on: 
+            - "mysql_usuario"                
+            - "usuario"
+    zuul:
+        container_name: zuul-service
+        image: zuul-server
+        build: 
+            dockerfile: ./docker/zuul.dockerfile
+            context: .
+        restart: always
+        networks: 
+            - prod-network
+        ports: 
+            - "5000:5000"
+        depends_on: 
+            - "eureka"
 
 networks: 
     prod-network:
         driver: bridge
-        

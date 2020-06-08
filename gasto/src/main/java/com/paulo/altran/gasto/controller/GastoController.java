@@ -34,7 +34,7 @@ public class GastoController {
 	private GastoService gastoService;
 
 	@PreAuthorize("hasRole('ROLE_CADASTRAR_GASTO')")
-	@PostMapping
+	@PostMapping("/")
 	public GastoRetornoDTO salvarGasto(@RequestBody @Valid GastoCadastroDTO dto) throws ParseException {
 		Gasto gastoSalvo = gastoService.salvarGasto(dto.convertToGasto());
 		GastoRetornoDTO retornoDTO = GastoRetornoDTO.convertToGastoRestornoDTO(gastoSalvo);
