@@ -13,8 +13,8 @@ spring:
     active: default      
   datasource: 
     username: root
-    password: root123456
-    url: jdbc:mysql://localhost:3306/db_usuarios 
+    password: root
+    url: jdbc:mysql://localhost:6033/db_usuarios 
   application:
     name: 'usuarios'
   jpa:
