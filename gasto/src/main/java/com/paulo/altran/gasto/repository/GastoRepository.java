@@ -14,7 +14,7 @@ public interface GastoRepository extends JpaRepository<Gasto, Long> {
 
 	Optional<Gasto> findFirst1BycodigoUsuarioAndDescricaoIgnoreCaseAndCodigoCategoriaNotNull(Long codigoUsuario,
 			String descricao);
-
+	
 	Optional<Gasto> findByIdAndCodigoUsuario(Long id, Long usuarioId);
 	
 	@Query("SELECT gasto from Gasto gasto where "

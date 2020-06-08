@@ -8,7 +8,7 @@ import com.paulo.altran.usuario.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-	Optional<Usuario> findByEmail(String email);
+	Optional<Usuario> findByAcesso(String acesso);
 
 	boolean findExistById(Long id);
 

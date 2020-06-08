@@ -1,8 +1,6 @@
 package com.paulo.altran.gasto.service;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +18,7 @@ import com.paulo.altran.gasto.client.CategoriaClient;
 import com.paulo.altran.gasto.client.UsuarioClient;
 import com.paulo.altran.gasto.dto.CategoriaCadastroDTO;
 import com.paulo.altran.gasto.dto.CategoriaDTO;
+import com.paulo.altran.gasto.dto.UsuarioDTO;
 import com.paulo.altran.gasto.exception.BussinessException;
 import com.paulo.altran.gasto.exception.ResourceNotFoundException;
 import com.paulo.altran.gasto.model.Gasto;
@@ -39,10 +38,8 @@ public class GastoService {
 	@Autowired
 	private UsuarioClient usuarioClient;
 
-	private Map<Long, String> categorias = new HashMap<>();
-
 	public Gasto salvarGasto(Gasto gasto) {
-//		verificaUsuario(gasto.getCodigoUsuario());
+		verificaUsuario(gasto.getCodigoUsuario());
 		Optional<Gasto> gastoComCategoriaIgual = gastoRepository
 				.findFirst1BycodigoUsuarioAndDescricaoIgnoreCaseAndCodigoCategoriaNotNull(gasto.getCodigoUsuario(),
 						gasto.getDescricao());
@@ -55,8 +52,8 @@ public class GastoService {
 		return gastoSalvo;
 	}
 
-	public Gasto salvarCategoria(String categoria, Long id, String email) {
-		Long usuarioId = usuarioClient.getIdUser(email);
+	public Gasto atribuirCategoria(String categoria, Long id, String acesso) {
+		Long usuarioId = buscarUsuarioIdPeloAcesso(acesso);
 		Gasto gasto = gastoRepository.findByIdAndCodigoUsuario(id, usuarioId)
 				.orElseThrow(() -> new ResourceNotFoundException("Gasto não encontrado pelo id: " + id));
 
@@ -71,8 +68,8 @@ public class GastoService {
 		return gasto;
 	}
 
-	public Gasto obterPorId(Long id, String email) {
-		Long usuarioId = usuarioClient.getIdUser(email);
+	public Gasto obterGastoPorId(Long id, String acesso) {
+		Long usuarioId = buscarUsuarioIdPeloAcesso(acesso);
 		Gasto gasto = gastoRepository.findByIdAndCodigoUsuario(id, usuarioId)
 				.orElseThrow(() -> new ResourceNotFoundException("Gasto não encontrado pelo id: " + id));
 		CategoriaDTO categoriaSalva = categoriaClient.bucarpeloId(gasto.getCodigoCategoria());
@@ -80,28 +77,35 @@ public class GastoService {
 		return gasto;
 	}
 
-	public Page<Gasto> obterGastosPorCodigoUsuario(Gasto filter, String email, Pageable pageable) {
-//		Long usuarioId = usuarioClient.getIdUser(email);
+	public Page<Gasto> obterGastosPorCodigoUsuario(Gasto filter, String acesso, Pageable pageable) {
+		Long usuarioId = buscarUsuarioIdPeloAcesso(acesso);
 		filter.setCodigoUsuario(1l);
 
 		Example<Gasto> example = Example.of(filter,
 				ExampleMatcher.matching().withIgnoreCase().withIgnoreNullValues()
-						.withStringMatcher(StringMatcher.CONTAINING)						
+						.withStringMatcher(StringMatcher.CONTAINING)
 						.withMatcher("cd_usuario", GenericPropertyMatchers.exact()));
 		Page<Gasto> result = gastoRepository.findAll(example, pageable);
 		return result;
 	}
 
-	public Page<Gasto> obterGastosPorData(LocalDate data, String email, Pageable pageable) {
-//		Long usuarioId = usuarioClient.getIdUser(email);
-//		filter.setCodigoUsuario(1l);
-		Page<Gasto> result = gastoRepository.buscarData(data, 1l, pageable);
+	public Page<Gasto> obterGastosPorData(LocalDate data, String acesso, Pageable pageable) {
+		Long usuarioId = buscarUsuarioIdPeloAcesso(acesso);
+		Page<Gasto> result = gastoRepository.buscarData(data, usuarioId, pageable);
 		return result;
 	}
-	
+
+	private Long buscarUsuarioIdPeloAcesso(String acesso) {
+		return this.usuarioClient.buscarIdPeloAcesso(acesso);
+	}
+
+	private UsuarioDTO buscarUsuarioPeloId(Long id) {
+		return this.usuarioClient.buscarUsuarioPeloId(id);
+	}
+
 	private void verificaUsuario(Long id) {
 		try {
-			this.usuarioClient.findExistsById(id);
+			this.usuarioClient.buscarUsuarioPeloId(id);
 		} catch (FeignException e) {
 			if (e.status() == 404) {
 				throw new ResourceNotFoundException("Usuario não encontrado pelo id: " + id);

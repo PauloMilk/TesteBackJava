@@ -22,7 +22,6 @@ import com.paulo.altran.categoria.dto.CategoriaRetornoDTO;
 import com.paulo.altran.categoria.model.Categoria;
 import com.paulo.altran.categoria.service.CategoriaService;
 
-
 @RestController
 public class CategoriaController {
 
@@ -45,19 +44,20 @@ public class CategoriaController {
 		CategoriaRetornoDTO retornoDTO = CategoriaRetornoDTO.convertToCategoriaRetornoDTO(categoriaSalva);
 		return retornoDTO;
 	}
-	
-	
+
 	@PreAuthorize("hasRole('ROLE_CONSULTAR_CATEGORIA')")
 	@GetMapping
-	public Page<CategoriaRetornoDTO> buscarCategoria(@RequestParam(name = "nome", required = false) String nome, Pageable pageable) {
+	public Page<CategoriaRetornoDTO> buscarPeloNome(@RequestParam(name = "nome", required = false) String nome,
+			Pageable pageable) {
 		Page<Categoria> categorias = categoriaService.buscarCategoria(nome, pageable);
-		List<CategoriaRetornoDTO> lista = categorias.getContent().stream().map(cat -> CategoriaRetornoDTO.convertToCategoriaRetornoDTO(cat)).collect(Collectors.toList());
-		return new PageImpl<CategoriaRetornoDTO>(lista,pageable,categorias.getTotalElements());
+		List<CategoriaRetornoDTO> lista = categorias.getContent().stream()
+				.map(cat -> CategoriaRetornoDTO.convertToCategoriaRetornoDTO(cat)).collect(Collectors.toList());
+		return new PageImpl<CategoriaRetornoDTO>(lista, pageable, categorias.getTotalElements());
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_CONSULTAR_CATEGORIA')")
 	@GetMapping("/pesquisa/nome")
-	public CategoriaRetornoDTO buscaCategoriaPeloNomeExato(@RequestParam String nome) {
+	public CategoriaRetornoDTO pesquisarPeloNomeExato(@RequestParam String nome) {
 		Categoria categoria = categoriaService.buscarCategoriaPeloNomeExato(nome);
 		CategoriaRetornoDTO retornoDTO = CategoriaRetornoDTO.convertToCategoriaRetornoDTO(categoria);
 		return retornoDTO;

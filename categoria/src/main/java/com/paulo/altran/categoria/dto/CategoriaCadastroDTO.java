@@ -14,13 +14,9 @@ import lombok.NoArgsConstructor;
 public class CategoriaCadastroDTO {
 
 	private String nome;
-	
-	
-	
+
 	public Categoria convertToCategoria() {
-		Categoria categoria = Categoria.builder()
-				.nome(this.nome)
-				.build();
+		Categoria categoria = Categoria.builder().nome(this.nome).build();
 		return categoria;
 	}
 }

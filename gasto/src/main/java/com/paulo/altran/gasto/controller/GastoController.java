@@ -43,16 +43,16 @@ public class GastoController {
 
 	@PreAuthorize("hasRole('ROLE_ATRIBUIR_CATEGORIA')")
 	@PatchMapping("/{id}/categoria")
-	public GastoRetornoDTO cadastrarCategoria(@PathVariable Long id, @RequestBody String categoria,
+	public GastoRetornoDTO atribuirCategoriaAoGasto(@PathVariable Long id, @RequestBody String categoria,
 			Principal principal) {
-		Gasto gasto = gastoService.salvarCategoria(categoria, id, principal.getName());
+		Gasto gasto = gastoService.atribuirCategoria(categoria, id, principal.getName());
 		return GastoRetornoDTO.convertToGastoRestornoDTO(gasto);
 	}
 
 	@PreAuthorize("hasRole('ROLE_CONSULTAR_GASTO')")
 	@GetMapping("/{id}")
 	public GastoRetornoDTO obterGastoPorId(@PathVariable Long id, Principal principal) {
-		Gasto gasto = gastoService.obterPorId(id, principal.getName());
+		Gasto gasto = gastoService.obterGastoPorId(id, principal.getName());
 		return GastoRetornoDTO.convertToGastoRestornoDTO(gasto);
 	}
 

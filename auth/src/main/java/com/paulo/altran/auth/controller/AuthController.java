@@ -10,7 +10,7 @@ public class AuthController {
 
 	
 	@GetMapping("user")
-	public Principal user(Principal user) {		
+	public Principal obterContextoDeSeguranca(Principal user) {		
 		return user;
 	}
 	

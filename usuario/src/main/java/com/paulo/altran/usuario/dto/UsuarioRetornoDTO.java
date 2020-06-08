@@ -18,14 +18,14 @@ public class UsuarioRetornoDTO {
 
 	private Long id;
 	private String nome;
-	private String email;
+	private String acesso;
 	private List<String> roles;
 	
 	public static UsuarioRetornoDTO convertToUsuarioRetornoDTO(Usuario usuario) {
 		UsuarioRetornoDTO dto = UsuarioRetornoDTO.builder()
 				.id(usuario.getId())
 				.nome(usuario.getNome())
-				.email(usuario.getEmail())
+				.acesso(usuario.getAcesso())
 				.roles(usuario.getRoles().stream().map(role -> role.getNome()).collect(Collectors.toList()))
 				.build();
 		return dto;

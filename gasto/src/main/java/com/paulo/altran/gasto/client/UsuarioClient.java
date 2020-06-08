@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.paulo.altran.gasto.dto.UsuarioDTO;
 
-@FeignClient(decode404 = false,name = "usuarios")
+@FeignClient(name = "usuarios")
 public interface UsuarioClient {
-	
-	@GetMapping("")
-	public Long getIdUser(@RequestParam String email);
+
+	@GetMapping("/pesquisa/acesso")
+	public Long buscarIdPeloAcesso(@RequestParam String acesso);
 
 	@GetMapping("/{id}")
-	public UsuarioDTO findExistsById(@PathVariable Long id);
+	public UsuarioDTO buscarUsuarioPeloId(@PathVariable Long id);
 }

@@ -1,6 +1,5 @@
 package com.paulo.altran.gasto;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -18,7 +17,7 @@ import feign.RequestTemplate;
 @SpringBootApplication
 @EnableResourceServer
 @EnableFeignClients
-public class GastoApplication implements CommandLineRunner {
+public class GastoApplication {
 
 	@Bean
 	public RequestInterceptor getInterceptorDeAutenticacao() {
@@ -45,20 +44,4 @@ public class GastoApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(GastoApplication.class, args);
 	}
-
-//	@Autowired
-//	private GastoRepository repo;
-//	'1', 'Mercado Extra', '256.98', NULL, '1', '2016-07-08 15:30:00', ''
-
-	@Override
-	public void run(String... args) throws Exception {
-//		Gasto gasto = Gasto.builder().descricao("tes").build();
-//		Page<Gasto> buscarData = this.repo.buscarData(null,null,null, LocalDate.of(2016, 7, 8), PageRequest.of(0, 10));
-//
-//		buscarData.getContent().forEach(x -> {
-//			System.out.println(x.getId());
-//		});
-
-	}
-
 }

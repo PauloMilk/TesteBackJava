@@ -40,7 +40,7 @@ public class Usuario {
 	private String nome;
 
 	@Column(name = "cd_acesso", unique = true)
-	private String email;
+	private String acesso;
 
 	@Column(name = "cd_senha")
 	private String senha;

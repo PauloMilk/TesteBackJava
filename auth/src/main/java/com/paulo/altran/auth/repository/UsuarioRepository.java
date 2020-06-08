@@ -8,6 +8,6 @@ import com.paulo.altran.auth.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-	Optional<Usuario> findByEmail(String email);
+	Optional<Usuario> findByAcesso(String acesso);
 
 }

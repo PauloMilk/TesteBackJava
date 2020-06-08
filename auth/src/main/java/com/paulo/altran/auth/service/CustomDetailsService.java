@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.paulo.altran.auth.model.Usuario;
 import com.paulo.altran.auth.repository.UsuarioRepository;
 
-
 @Service
 public class CustomDetailsService implements UserDetailsService {
 
@@ -18,10 +17,10 @@ public class CustomDetailsService implements UserDetailsService {
 	private UsuarioRepository usuarioRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Usuario usuario = usuarioRepository.findByEmail(email)
+	public UserDetails loadUserByUsername(String acesso) throws UsernameNotFoundException {
+		Usuario usuario = usuarioRepository.findByAcesso(acesso)
 				.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha inválidos!"));
-		UserDetails user = new User(usuario.getEmail(), usuario.getSenha(), usuario.getAuthorities());
+		UserDetails user = new User(usuario.getAcesso(), usuario.getSenha(), usuario.getAuthorities());
 		return user;
 	}
 }
